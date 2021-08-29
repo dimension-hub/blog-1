@@ -1,7 +1,7 @@
 'use strict';
 
 const gulp = require('gulp');
-const sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('node-sass'));
 const sourcemaps = require('gulp-sourcemaps');
 
 const paths = {
@@ -18,7 +18,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(paths.scss, ['sass']);
+  return gulp.watch(paths.scss, gulp.series('sass'));
 });
 
-gulp.task('default', ['watch', 'sass']);
+gulp.task('default', gulp.series('watch', 'sass'));
